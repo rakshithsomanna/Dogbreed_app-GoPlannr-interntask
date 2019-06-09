@@ -4,19 +4,19 @@ package com.example.dogbreeds
 import android.arch.lifecycle.Observer
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import com.example.dogbreeds.Model.data.BreedList
 import kotlinx.android.synthetic.main.activity_main.*
 import com.example.dogbreeds.ViewModel.BreedListViewModel
 
 import android.arch.lifecycle.ViewModelProviders
 import android.util.Log
 import android.widget.ArrayAdapter
-import com.example.dogbreeds.Model.data.DogImage
+import android.widget.SearchView
 import com.example.dogbreeds.ViewModel.DogImageViewModel
 
 class MainActivity : AppCompatActivity() {
     val urls = mutableListOf<String>()
-    //var x:String=""
+    lateinit var ad1:ArrayAdapter<String>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
         observeViewModel(viewModel)
         val viewModel2: DogImageViewModel = ViewModelProviders.of(this).get(DogImageViewModel::class.java)
         observeViewModel2(viewModel2)
+
     }
 
     private fun observeViewModel(viewModel: BreedListViewModel) {
@@ -46,6 +47,17 @@ class MainActivity : AppCompatActivity() {
                     val ad1 = ArrayAdapter(applicationContext,
                     R.layout.list_item, breeds)
                     listview1.adapter = ad1
+                    searchview1.setOnQueryTextListener(object : SearchView.OnQueryTextListener
+                    {
+                        override fun onQueryTextSubmit(query: String?): Boolean {
+                            return false
+                        }
+
+                        override fun onQueryTextChange(newText: String?): Boolean {
+                            ad1.getFilter().filter(newText)
+                            return false
+                        }
+                    })
 
                 }
             }
@@ -58,23 +70,18 @@ class MainActivity : AppCompatActivity() {
                     urls.add(imageurl)
 
                     Log.d("",urls.toString())
-                    try {
-                        val adapter = ViewPagerAdapter2(applicationContext, arrayOf(urls[0], urls[1], urls[2]))
-                        view_pager.adapter = adapter
-                    }
-                    catch (e: IllegalStateException)
-                    {
-                        Log.d("","Image accessed before it is loaded")
-                    }
-                    catch (e:IndexOutOfBoundsException)
-                    {
-                        Log.d("","Index out of bounds. Image accessed before it is loaded")
-                    }
+
+                        if (urls.size == 3) {
+                            val adapter = ViewPagerAdapter2(applicationContext, arrayOf(urls[0], urls[1], urls[2]))
+                            view_pager.adapter = adapter
+                        }
+
                 }
             }
         })
 
 
     }
+
 
 }

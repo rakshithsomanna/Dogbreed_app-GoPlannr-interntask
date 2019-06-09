@@ -25,23 +25,32 @@
             android:layout_height="wrap_content"
             android:id="@+id/tv1"
             android:text="List of Dog breeds with subbreeds"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintHorizontal_bias="0.12"
-            app:layout_constraintVertical_bias="0.445" android:textSize="18sp" android:textStyle="bold"/>
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="18sp" android:textStyle="bold" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginStart="24dp"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintVertical_bias="0.422"/>
     <ListView
             android:layout_width="293dp"
-            android:layout_height="250dp"
+            android:layout_height="223dp"
             android:id="@+id/listview1" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="350dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="64dp"
-            app:layout_constraintHorizontal_bias="0.125" android:layout_marginBottom="30dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.125"
             android:dividerHeight="2dp"
             android:headerDividersEnabled="true"
             android:divider="@color/black"
             android:background="@drawable/background"
-    />
+            android:layout_marginBottom="32dp" app:layout_constraintBottom_toBottomOf="parent"/>
+    <SearchView
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:id="@+id/searchview1"
+            android:background="@color/colorPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.082"
+            app:layout_constraintVertical_bias="0.474"/>
 
 
 </android.support.constraint.ConstraintLayout>
