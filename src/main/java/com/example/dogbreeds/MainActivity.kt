@@ -5,14 +5,12 @@ import android.arch.lifecycle.Observer
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_main.*
-import com.example.dogbreeds.ViewModel.BreedListViewModel
 
 import android.arch.lifecycle.ViewModelProviders
 import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.SearchView
 import com.example.dogbreeds.ViewModel.DogBreedViewModel
-import com.example.dogbreeds.ViewModel.DogImageViewModel
 
 class MainActivity : AppCompatActivity() {
     val urls = mutableListOf<String>()
@@ -21,11 +19,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        /*val viewModel: BreedListViewModel = ViewModelProviders.of(this).get(BreedListViewModel::class.java)
-        observeViewModel(viewModel)
-        val viewModel2: DogImageViewModel = ViewModelProviders.of(this).get(DogImageViewModel::class.java)
-        observeViewModel2(viewModel2)
-        */
         val viewModel: DogBreedViewModel = ViewModelProviders.of(this).get(DogBreedViewModel::class.java)
         observeViewModel(viewModel)
 
@@ -86,25 +79,3 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
-    /*
-    private fun observeViewModel2(viewModel: DogBreedViewModel) {
-        viewModel.getDogImageObservable().observe(this, object: Observer<String?> {
-            override fun onChanged(imageurl: String?) {
-                if (imageurl != null) {
-                    urls.add(imageurl)
-
-                    Log.d("",urls.toString())
-
-                        if (urls.size == 3) {
-                            val adapter = ViewPagerAdapter2(applicationContext, arrayOf(urls[0], urls[1], urls[2]))
-                            view_pager.adapter = adapter
-                        }
-
-                }
-            }
-        })
-
-
-    }
-
-*/
