@@ -11,6 +11,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.SearchView
+import com.example.dogbreeds.ViewModel.DogBreedViewModel
 import com.example.dogbreeds.ViewModel.DogImageViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -20,14 +21,17 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val viewModel: BreedListViewModel = ViewModelProviders.of(this).get(BreedListViewModel::class.java)
+        /*val viewModel: BreedListViewModel = ViewModelProviders.of(this).get(BreedListViewModel::class.java)
         observeViewModel(viewModel)
         val viewModel2: DogImageViewModel = ViewModelProviders.of(this).get(DogImageViewModel::class.java)
         observeViewModel2(viewModel2)
+        */
+        val viewModel: DogBreedViewModel = ViewModelProviders.of(this).get(DogBreedViewModel::class.java)
+        observeViewModel(viewModel)
 
     }
 
-    private fun observeViewModel(viewModel: BreedListViewModel) {
+    private fun observeViewModel(viewModel: DogBreedViewModel) {
         viewModel.getBreedListObservable().observe(this, object: Observer<ArrayList<String>?> {
             override fun onChanged(breeds: ArrayList<String>?) {
                 if (breeds != null) {
@@ -54,7 +58,7 @@ class MainActivity : AppCompatActivity() {
                         }
 
                         override fun onQueryTextChange(newText: String?): Boolean {
-                            ad1.getFilter().filter(newText)
+                            ad1.filter.filter(newText)
                             return false
                         }
                     })
@@ -62,8 +66,28 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+        viewModel.getDogImageObservable().observe(this, object: Observer<String?> {
+            override fun onChanged(imageurl: String?) {
+                if (imageurl != null) {
+                    urls.add(imageurl)
+
+                    Log.d("",urls.toString())
+
+                    if (urls.size == 3) {
+                        val adapter = ViewPagerAdapter2(applicationContext, arrayOf(urls[0], urls[1], urls[2]))
+                        view_pager.adapter = adapter
+                    }
+
+                }
+            }
+        })
+
+
     }
-    private fun observeViewModel2(viewModel: DogImageViewModel) {
+
+}
+    /*
+    private fun observeViewModel2(viewModel: DogBreedViewModel) {
         viewModel.getDogImageObservable().observe(this, object: Observer<String?> {
             override fun onChanged(imageurl: String?) {
                 if (imageurl != null) {
@@ -83,5 +107,4 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
-}
+*/
